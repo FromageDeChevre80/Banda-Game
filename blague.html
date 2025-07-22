@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Pas de feuille de route</title>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+    .retard {
+      font-size: 22px;
+      margin-bottom: 50px;
+      color: #c8102e;
+      font-weight: bold;
+    }
+    .blague {
+      font-size: 24px;
+      margin: 40px 0;
+    }
+    .question {
+      color: white;
+    }
+    .reponse {
+      color: #c8102e;
+      margin-top: 10px;
+    }
+    .btn-group {
+      margin-top: 50px;
+    }
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 20px;
+      border: 2px solid #c8102e;
+      background: white;
+      color: #c8102e;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      background-color: #c8102e;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Désolé, pas encore de feuille de route,  les infos arrivent toujours en retard comme</h1>
+  <div class="retard" id="retardCible">les Trinquant</div>
+
+  <div class="blague" id="blagueZone">
+    <div class="question" id="questionBlague"></div>
+    <div class="reponse" id="reponseBlague"></div>
+  </div>
+
+  <div class="btn-group">
+    <a href="https://sites.google.com/bandadesbordsdemarne.com/public/espace-musiciens" class="btn">🔙 Retour à l’espace musiciens</a>
+    <button class="btn" onclick="afficherBlague()">😂 Encore une blague</button>
+    <a href="#" class="btn" id="jeuAleatoire">🎮 Jouons ensemble</a>
+  </div>
+
+  <script>
+    const retards = [
+      "les Lopez", "les Ducournau", "les Trinquant", "Alban",
+      "les Percussion et leur tempo légendaires ...",
+      "les Trombones", "la SNCF"
+    ];
+    const blagues = [
+      {
+        q: "Pourquoi les saxophonistes ne peuvent-ils jamais garder un secret ?",
+        r: "Parce qu’ils finissent toujours par tout souffler. 🎷"
+      },
+      {
+        q: "Pourquoi les trompettistes ne jouent-ils jamais à cache-cache ?",
+        r: "Parce qu’on les entend souffler à 3 km. 🎺"
+      },
+      {
+        q: "Comment appelle-t-on un batteur qui vient de perdre son métronome ?",
+        r: "Un percussionniste libre. 🥁"
+      },
+      {
+        q: "Quelle est la différence entre un violoniste et un oignon ?",
+        r: "On pleure moins en coupant un violoniste. 🎻"
+      },
+      {
+        q: "Pourquoi les flûtistes sont-ils mauvais menteurs ?",
+        r: "Parce qu’ils ont toujours le bec dans la bouche. 🎶"
+      },
+      {
+        q: "Que fait un contrebassiste quand il a fini d'accorder son instrument ?",
+        r: "Il attend que le reste de l’orchestre le rattrape. 🎻"
+      },
+      {
+        q: "Pourquoi n’engage-t-on jamais un tromboniste pour faire des travaux ?",
+        r: "Parce qu’il recule toujours. 😅"
+      },
+      {
+        q: "Quel est le point commun entre une fanfare et un chantier ?",
+        r: "Le bruit, la poussière et personne ne sait qui dirige. 🚧🎷"
+      },
+      {
+        q: "Pourquoi les cornistes sont-ils souvent seuls ?",
+        r: "Parce qu’ils tournent toujours en rond. 🎵"
+      },
+      {
+        q: "Comment reconnaître un musicien heureux ?",
+        r: "Il a son instrument... et quelqu’un pour l’écouter. 😄"
+      }
+    ];
+    const jeux = [
+      "https://elgoog.im/dinosaur-game/",
+      "https://www.google.com/fbx?fbx=snake_arcade",
+      "https://quickdraw.withgoogle.com/",
+      "https://www.google.com/fbx?fbx=championship_tic_tac_toe",
+      "https://neal.fun/perfect-circle/",
+      "https://www.musicca.com/fr/piano"
+    ];
+
+    function afficherBlague() {
+      const random = Math.floor(Math.random() * blagues.length);
+      document.getElementById("questionBlague").innerHTML = blagues[random].q;
+      document.getElementById("reponseBlague").innerHTML = blagues[random].r;
+    }
+
+    function choisirRetardataire() {
+      const random = Math.floor(Math.random() * retards.length);
+      document.getElementById("retardCible").innerText = retards[random];
+    }
+
+    function choisirJeu() {
+      const random = Math.floor(Math.random() * jeux.length);
+      document.getElementById("jeuAleatoire").href = jeux[random];
+    }
+
+    // Initialisation
+    afficherBlague();
+    choisirRetardataire();
+    choisirJeu();
+  </script>
+
+</body>
+</html>
