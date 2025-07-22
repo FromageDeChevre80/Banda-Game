@@ -1,116 +1,206 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Feuille de route – En attente</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blague Musiciens</title>
   <style>
-    body {
+    /* Reset et base */
+    body, html {
+      margin: 0; padding: 0; height: 100%;
       background-color: #111;
       color: white;
       font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+    }
+    /* Conteneur général */
+    #top-message {
+      background-color: #000;
+      padding: 20px;
       text-align: center;
-      padding: 50px 20px;
+      font-size: 1.3rem;
+      line-height: 1.4;
+      color: white;
     }
-
-    h2 span {
+    #top-message .answer {
       color: #c8102e; /* Rouge Banda */
+      display: block;
+      margin-top: 6px;
+      font-weight: bold;
     }
-
-    .blague {
+    /* Blague centrée */
+    #joke-container {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+    #joke-container .question {
       color: #c8102e;
-      font-size: 1.3em;
-      margin: 40px 0;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+      white-space: pre-line;
     }
-
-    .button-container {
-      margin-top: 40px;
+    #joke-container .answer {
+      color: white;
+      font-size: 1.5rem;
+      white-space: pre-line;
+    }
+    /* Boutons en bas */
+    #buttons-container {
+      background-color: #000;
+      padding: 15px 10px;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
       gap: 15px;
+      border-top: 1px solid #c8102e;
     }
-
-    .btn {
-      padding: 12px 24px;
-      border: 2px solid #c8102e;
-      background-color: white;
-      color: #c8102e;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 1em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .btn:hover {
+    button {
       background-color: #c8102e;
+      border: none;
+      border-radius: 8px;
       color: white;
+      font-weight: bold;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-size: 1rem;
+      white-space: nowrap;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #a00f23;
     }
   </style>
 </head>
 <body>
 
-  <h2>
-    Désolé, pas encore de feuille de route. Les infos arrivent toujours en retard comme <span id="retard">les Lopez</span>
-  </h2>
+  <div id="top-message">
+    Désolé pas encore de feuille de route, les infos arrivent toujours en retard comme<br/>
+    <span class="answer" id="late-answer">les Trombones</span>
+  </div>
 
-  <p id="blague" class="blague">
-    Pourquoi les trompettistes ne peuvent-ils jamais garder un secret ? Parce qu’ils finissent toujours par le claironner.
-  </p>
+  <div id="joke-container">
+    <div class="question" id="joke-question">Pourquoi les musiciens ne prennent jamais l’ascenseur ?</div>
+    <div class="answer" id="joke-answer">Parce qu’ils préfèrent prendre une pause !</div>
+  </div>
 
-  <div class="button-container">
-    <a class="btn" href="https://sites.google.com/bandadesbordsdemarne.com/public/espace-musiciens">Retour à l’espace musiciens</a>
-    <button class="btn" onclick="updatePageContent()">Encore une blague</button>
-    <a class="btn" id="jeuBtn" href="#" target="_blank">Jouons ensemble</a>
+  <div id="buttons-container">
+    <button id="back-button">Retour à l’espace musiciens</button>
+    <button id="new-joke-button">Encore une blague</button>
+    <button id="play-game-button">Jouons ensemble</button>
   </div>
 
   <script>
-    const retardList = [
-      "les Lopez",
+    // Phrases de retard (réponses en rouge)
+    const lateAnswers = [
+      "les lopez",
       "les Ducournau",
       "les Trinquant",
       "Alban",
-      "les Percussion et leur maintien du tempo légendaires...",
+      "les Percussion et leur maintien du tempo légendaires ....",
       "les Trombones",
       "la SNCF"
     ];
 
-    const blagueList = [
-      "Pourquoi les trompettistes ne peuvent-ils jamais garder un secret ? Parce qu’ils finissent toujours par le claironner.",
-      "Quelle est la différence entre une batterie et un tambour ? Aucun, les deux font trop de bruit.",
-      "Pourquoi les altistes regardent-ils toujours leur archet ? Pour savoir de quel côté jouer.",
-      "Un percussionniste entre dans un bar... BOUM !",
-      "Pourquoi les musiciens aiment faire le ménage ? car le Sol c'est Fa Si La Si Ré.",
-      "Pourquoi les saxophonistes sont-ils toujours en retard ? Parce qu’ils improvisent même leur emploi du temps.",
-      "Quelle est la différence entre un chef d’orchestre et Dieu ? Dieu ne se prend pas pour un chef d’orchestre.",
-      "Pourquoi les contrebassistes n’utilisent-ils pas Internet ? Trop de cordes sensibles.",
-      "Que dit un musicien affamé ? Do ré mi...am !",
-      "Pourquoi les flûtistes n’ont-ils pas d’animaux ? Ils soufflent déjà assez comme ça."
+    // Blagues question / réponse
+    const jokes = [
+      {
+        question: "Pourquoi les musiciens ne prennent jamais l’ascenseur ?",
+        answer: "Parce qu’ils préfèrent prendre une pause !"
+      },
+      {
+        question: "Quel est l'instrument préféré des voleurs ?",
+        answer: "Le sax-o-pé !"
+      },
+      {
+        question: "Pourquoi les batteries sont mauvaises en maths ?",
+        answer: "Parce qu'elles perdent toujours le rythme."
+      },
+      {
+        question: "Que fait un trompettiste quand il tombe ?",
+        answer: "Il se relève en fa majeur."
+      },
+      {
+        question: "Pourquoi les violonistes sont toujours en retard ?",
+        answer: "Parce qu’ils suivent leur propre tempo."
+      },
+      {
+        question: "Comment appelle-t-on un pianiste qui tombe ?",
+        answer: "Un clavier cassé."
+      },
+      {
+        question: "Pourquoi les percussionnistes ne se perdent jamais ?",
+        answer: "Ils suivent toujours le bon tempo."
+      },
+      {
+        question: "Que dit un guitariste à son ampli ?",
+        answer: "T’es toujours là pour me soutenir !"
+      },
+      {
+        question: "Pourquoi les flûtistes ne parlent jamais ?",
+        answer: "Parce qu’ils préfèrent garder le silence... et le souffle."
+      },
+      {
+        question: "Qu’est-ce qu’un contrebassiste dit à l’accordéoniste ?",
+        answer: "T’es trop gonflé !"
+      }
     ];
 
-    const jeuxList = [
-      "https://chromedino.com/",
-      "https://tetris.com/play-tetris",
-      "https://poki.com/fr/g/doodle-jump",
-      "https://poki.com/fr/g/2048",
-      "https://poki.com/fr/g/stickman-hook",
-      "https://www.google.com/fbx?fbx=snake_arcade",
-      "https://quickdraw.withgoogle.com/"
+    // Jeux (URLs aléatoires)
+    const games = [
+      "https://elgoog.im/dino/", // Dino Google
+      "https://elgoog.im/pacman/", // Pacman
+      "https://elgoog.im/atari-breakout/", // Breakout
+      "https://elgoog.im/snake/", // Snake
+      "https://elgoog.im/t-rex/", // Autre version du Dino
     ];
 
-    function updatePageContent() {
-      const randomBlague = blagueList[Math.floor(Math.random() * blagueList.length)];
-      const randomRetard = retardList[Math.floor(Math.random() * retardList.length)];
-      const randomJeu = jeuxList[Math.floor(Math.random() * jeuxList.length)];
+    // Elements DOM
+    const lateAnswerEl = document.getElementById("late-answer");
+    const jokeQuestionEl = document.getElementById("joke-question");
+    const jokeAnswerEl = document.getElementById("joke-answer");
+    const backButton = document.getElementById("back-button");
+    const newJokeButton = document.getElementById("new-joke-button");
+    const playGameButton = document.getElementById("play-game-button");
 
-      document.getElementById("blague").innerText = randomBlague;
-      document.getElementById("retard").innerText = randomRetard;
-      document.getElementById("jeuBtn").href = randomJeu;
+    // Fonction pour choisir un élément aléatoire dans un tableau
+    function randomFromArray(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    // Initial load
-    updatePageContent();
+    // Mise à jour de la phrase de retard et de la blague
+    function updateContent() {
+      lateAnswerEl.textContent = randomFromArray(lateAnswers);
+      const joke = randomFromArray(jokes);
+      jokeQuestionEl.textContent = joke.question;
+      jokeAnswerEl.textContent = joke.answer;
+    }
+
+    // Au chargement initial
+    updateContent();
+
+    // Bouton "Encore une blague"
+    newJokeButton.addEventListener("click", () => {
+      updateContent();
+    });
+
+    // Bouton "Retour à l’espace musiciens"
+    backButton.addEventListener("click", () => {
+      window.location.href = "https://sites.google.com/bandadesbordsdemarne.com/public/espace-musiciens/";
+    });
+
+    // Bouton "Jouons ensemble"
+    playGameButton.addEventListener("click", () => {
+      const gameUrl = randomFromArray(games);
+      window.open(gameUrl, "_blank");
+    });
   </script>
 
 </body>
