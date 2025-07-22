@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blague Musiciens</title>
+  <title>Banda des Bords de Marne</title>
   <style>
-    /* Reset et base */
     body, html {
       margin: 0; padding: 0; height: 100%;
       background-color: #111;
@@ -16,23 +15,24 @@
       justify-content: space-between;
       min-height: 100vh;
     }
-    /* Conteneur général */
+
     #top-message {
       background-color: #000;
-      padding: 30px 20px 25px; /* plus d’espace en haut */
+      padding: 30px 20px 25px;
       text-align: center;
-      font-size: 1.8rem; /* plus gros */
+      font-size: 1.8rem;
       line-height: 1.4;
-      color: white;
-    }
-    #top-message .answer {
       color: #c8102e; /* Rouge Banda */
+    }
+
+    #top-message .answer {
+      color: white;
       display: block;
       margin-top: 8px;
       font-weight: bold;
-      font-size: 2rem; /* plus gros */
+      font-size: 2rem;
     }
-    /* Blague centrée */
+
     #joke-container {
       flex-grow: 1;
       display: flex;
@@ -42,27 +42,31 @@
       text-align: center;
       padding: 0 20px;
     }
+
     #joke-container .question {
       color: #c8102e;
-      font-size: 2.2rem; /* un peu plus grand */
+      font-size: 2.2rem;
       font-weight: bold;
       margin-bottom: 12px;
       white-space: pre-line;
     }
+
     #joke-container .answer {
       color: white;
-      font-size: 1.8rem; /* un peu plus grand */
+      font-size: 1.8rem;
       white-space: pre-line;
     }
-    /* Boutons en bas */
+
     #buttons-container {
       background-color: #000;
-      padding: 15px 10px 30px; /* plus de padding en bas pour les remonter */
+      padding: 15px 10px 30px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
       border-top: 1px solid #c8102e;
     }
+
     button {
       background-color: #c8102e;
       border: none;
@@ -75,6 +79,7 @@
       white-space: nowrap;
       transition: background-color 0.3s ease;
     }
+
     button:hover {
       background-color: #a00f23;
     }
@@ -99,18 +104,14 @@
   </div>
 
   <script>
-    // Phrases de retard (réponses en rouge)
     const lateAnswers = [
-      "les lopez",
-      "les Ducournau",
-      "les Trinquant",
-      "Alban",
-      "les Percussion et leur maintien du tempo :D ....",
-      "les Trombones",
+      "Vanessa", "Juliette", "Léo", "Rémi", "Angèle",
+      "Garance", "Nataél", "Léandre", "Louise", "le carnet 2",
+      "les Lopez", "les Ducournau", "les Trinquant",
+      "LA Thomann Family", "les Percussion et leur tempo :D ....",
       "la SNCF"
     ];
 
-    // Blagues question / réponse
     const jokes = [
       {
         question: "Comment un jazz man fait-il pour devenir millionnaire ?",
@@ -121,12 +122,12 @@
         answer: "Cela fait plus de 40 ans qu’ils ne jouent plus ensemble !"
       },
       {
-        question: "Qu'est-ce qun demie ton en Banda ?",
+        question: "Qu'est-ce qu'un demie ton en Banda ?",
         answer: "Deux Flûte qui jouent à l'unisson <3."
       },
       {
         question: "Le chef en répétition : - Trombone 2 tu joues trop fort !!!",
-        answer: "Les autres : - Il n'est pas la .... - Vous lui direz quand il reviendra ! ."
+        answer: "Les autres : - Il n'est pas là .... - Vous lui direz quand il reviendra !"
       },
       {
         question: "Pourquoi les Souba sont toujours en retard ?",
@@ -134,36 +135,32 @@
       },
       {
         question: "Comment faire cuire un poisson avec son Eupho ?",
-        answer: "Mettez le dans le pavillon et jouer Do Ré La Sol "
+        answer: "Mettez-le dans le pavillon et jouez Do Ré La Sol"
       },
       {
         question: "Pourquoi les musiciens aiment faire le ménage ?",
-        answer: "CAr le Sol c'est Fa Si La Si Ré."
+        answer: "Car le Sol c'est Fa Si La Si Ré."
       },
       {
         question: "Quelle est la note qui est toujours malade",
         answer: "le fa bémol parce qu’elle vaut mi"
       },
       {
-        question: "Quelle est le point commun entre un sax alto et une grenade?",
+        question: "Quelle est le point commun entre un sax alto et une grenade ?",
         answer: "Quand tu l’entends, c’est trop tard..."
       },
       {
-        question: "Que fait une clarinetisste dans une ferme ?",
-        answer: "Elle s'ocuppe de ses canards !"
+        question: "Que fait une clarinettiste dans une ferme ?",
+        answer: "Elle s'occupe de ses canards !"
       }
     ];
 
-    // Jeux (URLs aléatoires)
     const games = [
-      "https://elgoog.im/dino/", // Dino Google
-      "https://elgoog.im/pacman/", // Pacman
-      "https://elgoog.im/atari-breakout/", // Breakout
-      "https://elgoog.im/snake/", // Snake
-      "https://elgoog.im/t-rex/", // Autre version du Dino
+      "https://elgoog.im/dino/",
+      "https://elgoog.im/snake/",
+      "https://elgoog.im/t-rex/"
     ];
 
-    // Elements DOM
     const lateAnswerEl = document.getElementById("late-answer");
     const jokeQuestionEl = document.getElementById("joke-question");
     const jokeAnswerEl = document.getElementById("joke-answer");
@@ -171,12 +168,10 @@
     const newJokeButton = document.getElementById("new-joke-button");
     const playGameButton = document.getElementById("play-game-button");
 
-    // Fonction pour choisir un élément aléatoire dans un tableau
     function randomFromArray(arr) {
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    // Mise à jour de la phrase de retard et de la blague
     function updateContent() {
       lateAnswerEl.textContent = randomFromArray(lateAnswers);
       const joke = randomFromArray(jokes);
@@ -184,20 +179,16 @@
       jokeAnswerEl.textContent = joke.answer;
     }
 
-    // Au chargement initial
     updateContent();
 
-    // Bouton "Encore une blague"
     newJokeButton.addEventListener("click", () => {
       updateContent();
     });
 
-    // Bouton "Retour à l’espace musiciens"
     backButton.addEventListener("click", () => {
-      window.location.href = "https://sites.google.com/bandadesbordsdemarne.com/public/espace-musiciens/";
+      window.location.href = "https://sites.google.com/bandadesbordsdemarne.com/public/espace-musiciens/infos-presta";
     });
 
-    // Bouton "Jouons ensemble"
     playGameButton.addEventListener("click", () => {
       const gameUrl = randomFromArray(games);
       window.open(gameUrl, "_blank");
